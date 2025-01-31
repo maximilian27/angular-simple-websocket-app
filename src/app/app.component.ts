@@ -3,7 +3,7 @@ import { WebSocketSubject } from 'rxjs/webSocket';
 import { catchError, of, Subject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { v4 as uuidv4 } from 'uuid';
-import { FormControl, FormGroup, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 interface PaginationParams {
   pageNumber: number;
@@ -33,7 +33,8 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.subject = new WebSocketSubject({ url: 'ws://localhost:8080/comments' }); // Replace with your WebSocket server URL
+      this.subject = new WebSocketSubject({ url: 'ws://localhost:8080/comments' });
+
       this.subject.pipe(catchError((error) => of(error))).subscribe((response: any) => {
         console.log('Message received:', response);
         this.messages = response.allMessages;
