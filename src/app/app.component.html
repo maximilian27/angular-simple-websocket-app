@@ -1,0 +1,26 @@
+<div class="chat-room">
+  <h1>WebSocket Example</h1>
+  <div class="chat-room__container">
+    <section class="chat-room__form-container">
+      <h2>Enter a message:</h2>
+      <form class="hat-room__form" [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm.value)">
+        <textarea class="chat-room__form-textarea" [formControlName]="'message'" rows="10"></textarea>
+        <button class="chat-room__form-submit-button" type="submit">Send Message</button>
+      </form>
+    </section>
+    <section class="chat-room__messages-container">
+      <h2>Messages:</h2>
+      <ul class="chat-room__messages-list">
+        @for (message of messages; let index = $index; track index) {
+          <li
+            class="chat-room__message"
+            [class.chat-room__message-sent]="message.userId === userId"
+            [class.chat-room__message-received]="message.userId !== userId"
+          >
+            {{ message.text }}
+          </li>
+        }
+      </ul>
+    </section>
+  </div>
+</div>
